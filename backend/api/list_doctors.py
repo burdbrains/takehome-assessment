@@ -31,8 +31,10 @@ def return_doctors():
 def get_similar_doctors(doc_id):
     specified_doctor = DoctorsTable.query.get(doc_id)
 
+    same_specialty = DoctorsTable.specialty == specified_doctor.specialty
+
     similar_doctors = DoctorsTable.query.filter(DoctorsTable.id != specified_doctor.id).order_by(
-        func.abs(DoctorsTable.specialty - specified_doctor.specialty),  # Order by specialty
+        same_specialty.desc(),  # Order by specialty
         func.abs(DoctorsTable.rating - specified_doctor.rating),     # Then order by rating
         func.abs(DoctorsTable.experience - specified_doctor.experience),  # Then order by experience
         func.abs(DoctorsTable.zipcode - specified_doctor.zipcode),    # Then order by zipcode
