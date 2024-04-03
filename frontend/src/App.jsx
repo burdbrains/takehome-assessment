@@ -8,9 +8,9 @@ function App() {
 
   const [current_doctor, setCurrentDoctor] = useState("No Doctor Selected");
 
-  const handleSelect = (doctor_id, doctor_name) => {
-    setCurrentDoctor(doctor_name)
-    populateSimilarDoctors(doctor_id)
+  const handleSelect = (doctor) => {
+    setCurrentDoctor(`${doctor.name} - ${doctor.specialty} - ${doctor.zipcode} - ${doctor.rating}/5 - ${doctor.experience} years`)
+    populateSimilarDoctors(doctor.id)
   }
 
   const populateSimilarDoctors = async (doctor_id) => {
@@ -53,7 +53,7 @@ function App() {
           <div className="doctor-list-container">
             <ul className="doctor-list">
               <li key={index}>
-                <button onClick={() => handleSelect(doctor.id, doctor.name)}>Select</button>
+                <button onClick={() => handleSelect(doctor)}>Select</button>
                 {doctor.name} - {doctor.specialty} - {doctor.zipcode} - {doctor.rating}/5 - {doctor.experience} years
               </li>
             </ul>
